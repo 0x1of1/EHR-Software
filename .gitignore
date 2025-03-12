@@ -1,0 +1,40 @@
+# Node modules
+node_modules/
+
+# Docker data directories
+docker/development/db_data/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# IDE files
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Compiled files
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip 

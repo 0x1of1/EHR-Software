@@ -1,0 +1,59 @@
+version: "3.5"
+services:
+  mysql:
+    image: mysql:8.0.32
+    #command: --lower_case_table_names=1
+    ports:
+      - 9307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: IceHrmR00t
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+      MYSQL_DATABASE: 1of1group
+    volumes:
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./docker/development/db_data:/var/lib/mysql
+
+  icehrm:
+    build: .
+    ports:
+      - 9010:8080
+    environment:
+      ICE_CONFIG_FILE: ../docker/development/config/config.php
+    volumes:
+      - .:/var/www/html:cached
+      - ./web:/var/www/html/web:cached
+      - ./app:/var/www/html/app:cached
+    depends_on:
+      - mysql
+
+  icehrm-worker-dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile-worker
+    environment:
+      ICE_CONFIG_FILE: ../docker/development/config/config.php
+    volumes:
+      - .:/var/www/html:cached
+    depends_on:
+      - mysql
+      - icehrm
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - 9025:8025
+      - 9125:1025
+
+  phpmyadmin-dev:
+    image: phpmyadmin/phpmyadmin:5.2.1
+    ports:
+      - 9011:80
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: IceHrmR00t
+    depends_on:
+      - mysql
+volumes:
+  db_data:
