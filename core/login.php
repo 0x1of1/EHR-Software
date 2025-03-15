@@ -211,7 +211,7 @@ $csrfToken = sha1(rand(4500, 100000) . time() . CLIENT_BASE_URL);
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>IceHrm Login</title>
+	<title>1of1 HR System Login</title>
 	<link rel="shortcut icon" href="<?= BASE_URL ?>image/favicon.ico" type="image/x-icon">
 
 	<link href="<?= BASE_URL ?>dist/login.css?v=<?= $cssVersion ?>" rel="stylesheet">
@@ -258,9 +258,7 @@ $csrfToken = sha1(rand(4500, 100000) . time() . CLIENT_BASE_URL);
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="bg-white-2 h-100 px-11 pt-11 pb-7">
 									<div class="row d-flex justify-content-center">
-										<a href="https://1of1group.com" target="_blank">
-											<img style="max-width: 100%;padding-bottom: 30px;max-height:120px;" src="<?= $logoFileUrl ?>" alt="IceHrm for Managing Employees Data, Vacation, Attendance and Recruitment. A complete HR solution for your company" />
-										</a>
+										<img style="max-width: 100%;padding-bottom: 30px;max-height:120px;" src="<?= $logoFileUrl ?>" alt="1of1 HR System - A complete HR solution for your company" />
 									</div>
 									<?php if ($googleAuthEnabled) { ?>
 										<div class="row">
