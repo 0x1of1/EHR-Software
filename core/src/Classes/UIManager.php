@@ -1,4 +1,5 @@
 <?php
+
 namespace Classes;
 
 use Classes\ModuleBuilder\ModuleBuilder;
@@ -23,9 +24,7 @@ class UIManager
 
     protected $currentLanguageCode = '';
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function getInstance()
     {
@@ -53,7 +52,7 @@ class UIManager
             return $this->templates[$name];
         }
 
-        $this->templates[$name] = file_get_contents(APP_BASE_PATH."templates/".$type."/".$name.".html");
+        $this->templates[$name] = file_get_contents(APP_BASE_PATH . "templates/" . $type . "/" . $name . ".html");
 
         return $this->templates[$name];
     }
@@ -62,7 +61,7 @@ class UIManager
     {
         $template = $this->getTemplate($name, $type);
         foreach ($params as $key => $value) {
-            $template = str_replace("#_".$key."_#", $value, $template);
+            $template = str_replace("#_" . $key . "_#", $value, $template);
         }
 
         return LanguageManager::translateTnrText($template);
@@ -85,45 +84,45 @@ class UIManager
 
         if (!empty($profileCurrent) && !empty($profileSwitched)) {
             $this->currentProfileBlock = array(
-                "profileImage"=>$profileCurrent->image,
-                "firstName"=>$profileCurrent->first_name,
-                "lastName"=>$profileCurrent->last_name,
-                "profile_url"=>CLIENT_BASE_URL.'?g=admin&n=employees&m=admin_Employees',
+                "profileImage" => $profileCurrent->image,
+                "firstName" => $profileCurrent->first_name,
+                "lastName" => $profileCurrent->last_name,
+                "profile_url" => CLIENT_BASE_URL . '?g=admin&n=employees&m=admin_Employees',
             );
 
             $this->switchedProfileBlock = array(
-                "profileImage"=>$profileSwitched->image,
-                "firstName"=>$profileSwitched->first_name,
-                "lastName"=>$profileSwitched->last_name,
-                "profile_url"=>CLIENT_BASE_URL.'?g=modules&n=employees&m=module_Personal_Information',
+                "profileImage" => $profileSwitched->image,
+                "firstName" => $profileSwitched->first_name,
+                "lastName" => $profileSwitched->last_name,
+                "profile_url" => CLIENT_BASE_URL . '?g=modules&n=employees&m=module_Personal_Information',
             );
         } elseif (!empty($profileCurrent)) {
             $this->currentProfileBlock = array(
-                "profileImage"=>$profileCurrent->image,
-                "firstName"=>$profileCurrent->first_name,
-                "lastName"=>$profileCurrent->last_name,
-                "profile_url"=>CLIENT_BASE_URL.'?g=modules&n=employees&m=module_Personal_Information',
+                "profileImage" => $profileCurrent->image,
+                "firstName" => $profileCurrent->first_name,
+                "lastName" => $profileCurrent->last_name,
+                "profile_url" => CLIENT_BASE_URL . '?g=modules&n=employees&m=module_Personal_Information',
             );
         } elseif (!empty($profileSwitched)) {
             $this->currentProfileBlock = array(
-                "profileImage"=>BASE_URL."images/user_male.png",
-                "firstName"=>$this->user->username,
-                "lastName"=>"",
-                "profile_url"=>CLIENT_BASE_URL.'?g=admin&n=employees&m=admin_Employees',
+                "profileImage" => BASE_URL . "images/user_male.png",
+                "firstName" => $this->user->username,
+                "lastName" => "",
+                "profile_url" => CLIENT_BASE_URL . '?g=admin&n=employees&m=admin_Employees',
             );
 
             $this->switchedProfileBlock = array(
-                "profileImage"=>$profileSwitched->image,
-                "firstName"=>$profileSwitched->first_name,
-                "lastName"=>$profileSwitched->last_name,
-                "profile_url"=>CLIENT_BASE_URL.'?g=modules&n=employees&m=module_Personal_Information',
+                "profileImage" => $profileSwitched->image,
+                "firstName" => $profileSwitched->first_name,
+                "lastName" => $profileSwitched->last_name,
+                "profile_url" => CLIENT_BASE_URL . '?g=modules&n=employees&m=module_Personal_Information',
             );
         } else {
             $this->currentProfileBlock = array(
-                "profileImage"=>BASE_URL."images/user_male.png",
-                "firstName"=>$this->user->username,
-                "lastName"=>"",
-                "profile_url"=>CLIENT_BASE_URL.'?g=admin&n=employees&m=admin_Employees',
+                "profileImage" => BASE_URL . "images/user_male.png",
+                "firstName" => $this->user->username,
+                "lastName" => "",
+                "profile_url" => CLIENT_BASE_URL . '?g=admin&n=employees&m=admin_Employees',
             );
         }
     }
@@ -142,12 +141,12 @@ class UIManager
     {
         $menuItems = array();
 
-//        if (!empty($this->quickAccessMenuItems)) {
-//            $itemsHtml = $this->getQuickAccessMenuItemsHTML();
-//            if (!empty($itemsHtml)) {
-//                $menuItems[] = new MenuItemTemplate('menuButtonQuick', array("ITEMS"=>$itemsHtml));
-//            }
-//        }
+        //        if (!empty($this->quickAccessMenuItems)) {
+        //            $itemsHtml = $this->getQuickAccessMenuItemsHTML();
+        //            if (!empty($itemsHtml)) {
+        //                $menuItems[] = new MenuItemTemplate('menuButtonQuick', array("ITEMS"=>$itemsHtml));
+        //            }
+        //        }
 
         $menuItems[] = new MenuItemTemplate('menuButtonNotification', array());
         if ($this->user->user_level == 'Admin') {
@@ -182,24 +181,24 @@ class UIManager
             $menuItems[] = new MenuItemTemplate(
                 'menuButtonProfile',
                 array(
-                    "profileImage"=>$this->currentProfile->image,
-                    "displayName"=>$displayName,
-                    "firstName"=>$this->currentProfile->first_name,
-                    "lastName"=>$this->currentProfile->last_name,
-                    "homeLink"=>$this->homeLink,
-                    "CLIENT_BASE_URL"=>CLIENT_BASE_URL
+                    "profileImage" => $this->currentProfile->image,
+                    "displayName" => $displayName,
+                    "firstName" => $this->currentProfile->first_name,
+                    "lastName" => $this->currentProfile->last_name,
+                    "homeLink" => $this->homeLink,
+                    "CLIENT_BASE_URL" => CLIENT_BASE_URL
                 )
             );
         } else {
             $menuItems[] = new MenuItemTemplate(
                 'menuButtonProfile',
                 array(
-                    "profileImage"=>BASE_URL."images/user_male.png",
-                    "displayName"=>$displayName,
-                    "firstName"=>$this->user->username,
-                    "lastName"=>"",
-                    "homeLink"=>$this->homeLink,
-                    "CLIENT_BASE_URL"=>CLIENT_BASE_URL
+                    "profileImage" => BASE_URL . "images/user_male.png",
+                    "displayName" => $displayName,
+                    "firstName" => $this->user->username,
+                    "lastName" => "",
+                    "homeLink" => $this->homeLink,
+                    "CLIENT_BASE_URL" => CLIENT_BASE_URL
                 )
             );
         }
@@ -216,10 +215,10 @@ class UIManager
             $menuItems[] = new MenuItemTemplate(
                 'menuButtonHelp',
                 array(
-                "APP_NAME"=>APP_NAME,
-                "VERSION"=>VERSION,
-                "VERSION_DATE"=>VERSION_DATE,
-                "OTHER"=>$other
+                    "APP_NAME" => APP_NAME,
+                    "VERSION" => VERSION,
+                    "VERSION_DATE" => VERSION_DATE,
+                    "OTHER" => $other
                 )
             );
         }
@@ -232,7 +231,7 @@ class UIManager
         $menuItems = $this->getMenuBlocks();
         $menuHtml = "";
         foreach ($menuItems as $item) {
-            $menuHtml.=$item->getHtml();
+            $menuHtml .= $item->getHtml();
         }
 
         return $menuHtml;
@@ -255,7 +254,7 @@ class UIManager
         $user = BaseService::getInstance()->getCurrentUser();
         foreach ($this->quickAccessMenuItems as $item) {
             if (empty($item[3]) || in_array($user->user_level, $item[3])) {
-                $html .= '<a href="'.$item[2].'"><i class="fa '.$item[1].'"></i> '.$item[0].'</a>';
+                $html .= '<a href="' . $item[2] . '"><i class="fa ' . $item[1] . '"></i> ' . $item[0] . '</a>';
             }
         }
 
@@ -266,9 +265,9 @@ class UIManager
     {
         $html = "";
         foreach ($this->languageMenuItems as $item) {
-            $html .= '<a href="#" onclick="updateLanguage(\''.$item.'\');return false;">
-            <span class="flag-icon flag-icon-'.$this->getCountryCodeByLanguage($item).'"></span>
-              <b>'.strtoupper($item).'</b></a>';
+            $html .= '<a href="#" onclick="updateLanguage(\'' . $item . '\');return false;">
+            <span class="flag-icon flag-icon-' . $this->getCountryCodeByLanguage($item) . '"></span>
+              <b>' . strtoupper($item) . '</b></a>';
         }
 
         return $html;
@@ -299,8 +298,8 @@ class UIManager
     public function renderModule($moduleBuilder)
     {
         $str = '<div class="span9">'
-            .'<ul class="nav nav-tabs" id="modTab" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">'
-            .'__tabHeaders__</ul><div class="tab-content">__tabPages__</div></div><script>__tabJs__</script>';
+            . '<ul class="nav nav-tabs" id="modTab" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">'
+            . '__tabHeaders__</ul><div class="tab-content">__tabPages__</div></div><script>__tabJs__</script>';
         $str = str_replace("__tabHeaders__", $moduleBuilder->getTabHeadersHTML(), $str);
         $str = str_replace("__tabPages__", $moduleBuilder->getTabPagesHTML(), $str);
         $str = str_replace("__tabJs__", $moduleBuilder->getModJsHTML(), $str);
@@ -314,16 +313,35 @@ class UIManager
             return FileService::getInstance()->getFileUrl($logoSettings, false);
         }
 
-        $logoFileName = CLIENT_BASE_PATH.'logo.png';
+        $logoFileName = CLIENT_BASE_PATH . 'logo.png';
 
         if (file_exists($logoFileName)) {
-            return CLIENT_BASE_URL.'logo.png';
+            return CLIENT_BASE_URL . 'logo.png';
         }
 
-        return  BASE_URL."images/logo.png";
+        return  BASE_URL . "images/logo.png";
     }
 
-    public function get_random_login_image() {
+    public function getLoginLogoUrl()
+    {
+        $loginLogoFileName = CLIENT_BASE_PATH . 'login_logo.jpg';
+
+        if (file_exists($loginLogoFileName)) {
+            return CLIENT_BASE_URL . 'login_logo.jpg';
+        }
+
+        $loginLogoFileName = BASE_URL . "images/login_logo.jpg";
+
+        if (file_exists(CLIENT_BASE_PATH . 'web/' . $loginLogoFileName)) {
+            return $loginLogoFileName;
+        }
+
+        // Fall back to regular logo if login logo doesn't exist
+        return $this->getCompanyLogoUrl();
+    }
+
+    public function get_random_login_image()
+    {
         return  'https://icehrm-public.s3.amazonaws.com/images/login_page.png';
     }
 
