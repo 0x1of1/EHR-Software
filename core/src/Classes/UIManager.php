@@ -330,10 +330,10 @@ class UIManager
             return CLIENT_BASE_URL . 'login_logo.jpg';
         }
 
-        $loginLogoFileName = BASE_URL . "images/login_logo.jpg";
+        $webImagesPath = CLIENT_BASE_PATH . 'web/images/login_logo.jpg';
 
-        if (file_exists(CLIENT_BASE_PATH . 'web/' . $loginLogoFileName)) {
-            return $loginLogoFileName;
+        if (file_exists($webImagesPath)) {
+            return BASE_URL . "images/login_logo.jpg";
         }
 
         // Fall back to regular logo if login logo doesn't exist
