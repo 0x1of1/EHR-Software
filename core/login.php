@@ -194,7 +194,7 @@ if (empty($user) || empty($user->email)) {
 }
 
 $tuser = \Utils\SessionUtils::getSessionObject('user');
-$logoFileUrl = UIManager::getInstance()->getLoginLogoUrl();
+$logoFileUrl = BASE_URL . "images/login_logo.jpg";
 
 $csrfToken = sha1(rand(4500, 100000) . time() . CLIENT_BASE_URL);
 \Utils\SessionUtils::saveSessionObject('csrf-login', $csrfToken);
